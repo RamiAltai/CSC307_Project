@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style>
+        *{
+          margin: 0;
+          padding:0;
+
+        }
+      #map {
+        height:400px;
+        width:100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Hunt The rabbit</h3>
+    <div id="map">
+
+    </div>
+    <script>
+       function initMap() {
+         var location = { lat: 24.224370, lng: 55.741180};
+         var map = new google.maps.Map(document.getElementById("map"), {
+           zoom: 16,
+           center: location
+         });
+         var marker = new google.maps.Marker({
+           position: location,
+           map: map
+         });
+       }
+    </script>
+    <script  async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoZjk9WIwrp5X_nPP2nX0YyldLuykwgBU&callback=initMap">
+
+    </script>
+  </body>
+</html>
