@@ -1,9 +1,22 @@
 Node Society Website
-	Landing Page \ Home Page
+	NavBar
 		About Us
-		Forum
+			Meet the team
 		Resources
+			Node
 		Contact Us
-		About Us
+			Google Map
+			Send Email
 		Calender
+		 (Low Priority)
 		Gallery
+			IG Feed
+			Pics witrh drop down to pick
+		Home
+			about node society as a concept
+		Forum
+			Post/Image
+			Article, etc ... 
+		Entertainment
+			Abdulla's Game
+			Rami's Game
