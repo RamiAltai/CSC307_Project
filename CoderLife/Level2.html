@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<style>
+	canvas {
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 550px;
+	}
+	</style>
+	
+	<head>
+		<title>Canvas Basic</title>
+	</head>
+	<body>  
+
+		 <audio id="sound1">
+	   	 <source src="assests/sound1.mp3" type="audio/mpeg">
+	 	 Your browser does not support the audio element.
+	     </audio>
+
+		<canvas id="c1" width="550"  height="550"  > </canvas>
+		
+		<script src="GameObj.js"></script>
+		
+		<script>
+			var score = 0;
+			var lives = 3;
+			var audio = new Audio('Sound2.wav');
+ 
+			var requestAnimationFrame = window.requestAnimationFrame ||
+							window.mozRequestAnimationFrame ||
+							window.webkitRequestAnimationFrame ||
+							window.msRequestAnimationFrame;
+							
+			var canvas = document.getElementById('c1');
+			var ctx = canvas.getContext('2d');
+
+			var background = new Image();
+			background.src = "level2BG.png";
+
+			
+			var player = new GameObject(canvas.width/2,canvas.height-75,50, 50,"basketE.png",0,0,10,true);
+
+			var mint  = new GameObject(0,0,50,50,"mint.png",30,1,2,true,2);
+			var lemon  = new GameObject(0,0,50,50,"lemon.png",30,1,2,true,2);
+			var strawberry  = new GameObject(0,0,80,50,"strawberry.png",30,1,5,true,5);	
+			var sevenup  = new GameObject(0,0,70,70,"sevenup.png",30,1,5,true,4);
+			var bomb  = new GameObject(0,0,50,55,"bomb.png",30,1,5,true,0);
+
+
+			document.onkeydown = processKey;
+			//this function was modified to avoid letting the basket move beyond the limits of the BG..
+			
+			function  processKey(e){
+
+				e=e || window.event;
+				// alert("Key pressed = " + e.keyCode); 
+			
+				if (e.keyCode == 37){
+				// left key is pressed
+					if (player.x >0){
+					//within the screen edge from the left
+						player.x=player.x-50;
+						player.alive=true;
+						Image.src = 'basketE.png';
+					}
+				
+				}
+				if (e.keyCode == 39){
+				// right key is pressed
+					if (player.x <500){
+					//within the screen edge from the right
+						player.x=player.x+50;
+						
+						setInterval(player.alive=true, 2000);
+						Image.src = 'basketE.png';
+					}
+				}
+			}
+
+
+			function drawObjects(){
+
+				ctx.drawImage(background,0,0,canvas.width, canvas.height);
+				mint.draw(ctx);
+				strawberry.draw(ctx); 
+				player.draw(ctx); 
+				sevenup.draw(ctx);
+				lemon.draw(ctx);
+				bomb.draw(ctx);
+
+				ctx.font = "20px Comic Sans MS";
+				ctx.fillStyle = "red";
+				ctx.textAlign = "center";
+				ctx.fillText("Score " + score, canvas.width - 100, 30);  
+
+				if (score == 6) 
+				{
+					window.location = "Level3.html";
+				}
+				if (lives == 0) {
+					window.location = "Lose2.html";
+				}
+				if (mint.C == mint.max &&
+					lemon.C == lemon.max &&
+					strawberry.C == strawberry.max &&
+					sevenup.C == sevenup.max &&
+					score < 6){
+					window.location = "Lose2.html";	
+				}
+			}
+
+
+			function animate(){       
+
+				requestAnimationFrame(animate);
+				
+				player.checkCollision(mint);
+				player.checkCollision(lemon);
+				player.checkCollision(strawberry);
+				player.checkCollision(sevenup);
+				player.checkCollisionBomb(bomb);
+				
+				mint.x = 3 * mint.xDir ;
+				mint.y = mint.y + 4 * mint.yDir ;
+
+				strawberry.x = 7 * strawberry.xDir ;
+				strawberry.y = strawberry.y + 5 * strawberry.yDir ;
+
+				sevenup.x = 11 * sevenup.xDir ;
+				sevenup.y = sevenup.y + 5.5 * sevenup.yDir ;
+
+				lemon.x = 15 * lemon.xDir ;
+				lemon.y = lemon.y + 5.5 * lemon.yDir ;
+				
+				bomb.x = 13 * bomb.xDir ;
+				bomb.y = bomb.y + 5.5 * bomb.yDir ;
+				
+			
+				if ( (mint.y > canvas.height) && (mint.C < mint.max)){ 
+					mint.y = -200; 
+					mint.C++;
+				}
+				if ( (strawberry.y > canvas.height) && (strawberry.C < strawberry.max)){ 
+					strawberry.y = -150; 
+					strawberry.C++;
+				}
+				if ( (sevenup.y > canvas.height) && (sevenup.C < sevenup.max)){ 
+					sevenup.y = -200; 
+					sevenup.C++;
+				}
+				if ( (lemon.y > canvas.height) && (lemon.C < lemon.max)){ 
+					lemon.y = -200; 
+					lemon.C++;
+				}
+				if ( (bomb.y > canvas.height)){ 
+					bomb.y = -200; 
+				}
+				drawObjects();
+			}	
+			animate();
+		</script> 
+	</body>
+</html>
+
