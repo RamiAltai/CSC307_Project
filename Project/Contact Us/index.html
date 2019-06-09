@@ -1,0 +1,66 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css" type="text/css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans">
+		<title>Contact Us</title>
+	</head>
+	<body>
+		<header>
+			<div id="menu-bar">
+				<div id="menu" onclick="onClickMenu()">
+					<div id="bar1" class="bar"></div>
+					<div id="bar2" class="bar"></div>
+					<div id="bar3" class="bar"></div>
+				</div>
+				<ul class="nav" id="nav">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">About Us</a></li>
+					<li><a href="#">Resources</a></li>
+					<li><a href="#">Gallery</a></li>
+					<li><a href="#">Games</a></li>
+				</ul>
+			</div>
+			<div class="menu-bg" id="menu-bg"></div>
+		</header>
+		
+		<div class="subSection">
+			<p style="margin-left: 25%; margin-right:25%; border-bottom: dotted 20px white; line-height: 200px; font-size: 40px;">
+		
+			Feel free to visit us on ADU campases and various location during the events marked with our calender
+			</p>
+		</div>
+		<div class="sect sectOne" style="items-align:center;" >
+			<div id="map" style="width:45%;height:100%; float: left;"></div>
+			<div style="width:45%;height:100%; float: left; margin-left: 10%;">
+				<iframe src="https://calendar.google.com/calendar/embed?src=en.ae%23holiday%40group.v.calendar.google.com&ctz=Asia%2FDubai" style="border: 0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe> 
+			</div>
+			
+		</div>
+		<div class="subSection" style="height: 10%;" >
+			<p style="margin-left: 25%; margin-right:25%; font-size: 40px; text-align: center;">
+				Or email us
+			</p>
+		</div>
+		<div class="sect sectTwo"  >
+			<p style="margin-left: 25%; margin-right:25%; font-size: 40px; text-align: center;">
+				*contact us form here*
+			</p>
+			
+		</div>
+		<script src="script.js"></script>
+		    <script>
+			function initMap() {
+			  var location = { lat: 24.224370, lng: 55.741180};
+			  var map = new google.maps.Map(document.getElementById("map"), {
+			    zoom: 16,
+			    center: location
+			  });
+			  var marker = new google.maps.Marker({
+			    position: location,
+			    map: map
+			  });
+			}
+		     </script>
+    <script  async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoZjk9WIwrp5X_nPP2nX0YyldLuykwgBU&callback=initMap"></script>
+	</body>
+</html>
