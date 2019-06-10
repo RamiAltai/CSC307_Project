@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Sign-up</title>
+		<link rel="stylesheet" href="login.css"/>
+		<style>
+			@import url('https://fonts.google.com/css?family=Lobster|Pacifico');
+		</style>
+		<style media="screen">
+		.input2[placeholder] {
+padding-left: 23%;
+	font-family: 'Lobster';
+	font-size: 1.9vw;
+}
+.input2::placeholder {
+color:  rgba(255, 255, 255, .9);
+}
+.input1::placeholder {
+color:  rgba(255, 255, 255, .9);
+}
+.input1[placeholder]{
+    padding-left: 23%;
+    font-family: 'Lobster';
+    font-size: 1.9vw;
+}
+.content:hover{
+  background: rgba(255,255,255,.5);
+  transform: scale(1.1);
+}
+		</style>
+	</head>
+
+	<body>
+		<header>
+			<div id="menu-bar">
+				<div id="menu" onclick="onClickMenu();">
+					<div id="bar1" class="bar"></div>
+					<div id="bar2" class="bar"></div>
+					<div id="bar3" class="bar"></div>
+				</div>
+				<ul class="nav" id="nav">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">About Us</a></li>
+					<li><a href="#">Resources</a></li>
+					<li><a href="#">Gallery</a></li>
+					<li><a href="#">Games</a></li>
+					<li><a href="#">Contact Us</a></li>
+				</ul>
+			</div>
+			<div class="menu-bg" id="menu-bg"></div>
+		</header>
+		<div style="width: 100%;
+    height: 100%;
+    display: table;
+    top: 0;" >
+			<div style='display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+		'>
+
+					<form style="width: 26vw;
+    height: 70vh;
+
+    background: rgba(255,255,255,.2);
+    transition: 0.3s;
+    margin: 10% auto 10% auto;
+    border-radius: 2.5%;
+    display: table;" action="index.html" method="post">
+						<img src="images/NSLogo.jpg" style="display: table-cell;
+    width: 30%;
+    height: 25%;
+    margin: auto;
+	margin-top: 10%;
+    border: 2px solid black;
+    border-radius: 100%;" height="150px" width="150px">
+						<input type="text" placeholder="Username" style="display: table-cell;
+    margin-left: 3.5vw;
+    margin-top: 6vh;
+    padding: 1% 1% 1% 10%;
+    background: url('images/authentication/user.png');
+		background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 20px;
+    font-family: 'Pacifico';
+    border: 0px;
+    border-bottom: 1px solid white;
+    width: 13.5vw;
+		">
+						<input type="password" placeholder="Password" style="display: table-cell;
+    margin-left: 3.5vw;
+    margin-top: 6vh;
+    padding: 1% 1% 1% 10%;
+    background: url('images/authentication/pass.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    font-size: 20px;
+    font-family: 'Pacifico';
+    border: 0px;
+    border-bottom: 1px solid white;
+    width: 13.5vw;">
+		<input type="password" placeholder="Password Again" style="display: table-cell;
+margin-left: 3.5vw;
+margin-top: 6vh;
+padding: 1% 1% 1% 10%;
+background: url('images/authentication/pass.png');
+background-size: contain;
+background-repeat: no-repeat;
+font-size: 20px;
+font-family: 'Pacifico';
+border: 0px;
+border-bottom: 1px solid white;
+width: 13.5vw;">
+						<a href="" style="text-decoration: none;
+    display: table;
+    text-align: center;
+    margin-top: 6%;
+    height: 2.8vh;
+    padding: 3% 0% 3% 0%;
+    background: black;
+    font-family: 'Lobster';
+    font-size: 1.8vw;
+		width:100%;
+    color: rgba(255,255,255,.9);">Sign-up</a>
+		<span> Already have an Account? <a href="" style="text-decoration:none; color:white;">Log-in</a></span>
+					</form>
+
+			</div>
+
+		</div>
+		<script src="script.js" charset="utf-8"></script>
+	</body>
+
+</html>
