@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+	<style>
+	canvas {
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 550px;
+	}
+	</style>
+	
+	<head>
+		<title>Canvas Basic</title>
+	</head>
+	<body>  
+		<canvas id="c1" width="550"  height="550"  > </canvas>
+		
+		<script src="GameObj.js"></script>
+		
+		<script>
+			var score = 0;
+			var lives = 3;
+			var audio = new Audio('Sound1.wav');
+
+ 
+			var requestAnimationFrame = window.requestAnimationFrame ||
+							window.mozRequestAnimationFrame ||
+							window.webkitRequestAnimationFrame ||
+							window.msRequestAnimationFrame;
+							
+			var canvas = document.getElementById('c1');
+			var ctx = canvas.getContext('2d');
+
+		//	var s1 = document.getElementById("sound1"); 
+
+
+			var background = new Image();
+			background.src = "level1BG.png";
+
+			
+			var player = new GameObject(canvas.width/2,canvas.height-75,50, 50,"basketE.png",0,0,10,true);
+			var apple  = new GameObject(0,0,50,50,"apple.png",30,1,2,true,4);
+			var water  = new GameObject(0,0,80,50,"water.png",30,1,5,true,3);	
+			var sugar  = new GameObject(0,0,70,70,"sugar.png",30,1,5,true,5);
+			var bomb  = new GameObject(0,0,50,55,"bomb.png",30,1,5,true,0);
+
+			document.onkeydown = processKey;
+			//this function was modified to avoid letting the basket move beyond the limits of the BG..
+			
+			function  processKey(e){
+
+				e=e || window.event;
+				// alert("Key pressed = " + e.keyCode); 
+			
+				if (e.keyCode == 37){
+				// left key is pressed
+					if (player.x >0){
+					//within the screen edge from the left
+						player.x=player.x-50;
+						player.alive=true;
+						Image.src = 'basketE.png';
+					}
+				
+				}
+				if (e.keyCode == 39){
+				// right key is pressed
+					if (player.x <500){
+					//within the screen edge from the right
+						player.x=player.x+50;
+						
+						setInterval(player.alive=true, 2000);
+						Image.src = 'basketE.png';
+					}
+				}
+			}
+
+
+			function drawObjects(){
+
+				ctx.drawImage(background,0,0,canvas.width, canvas.height);
+				water.draw(ctx);
+				sugar.draw(ctx); 
+				player.draw(ctx); 
+				apple.draw(ctx);
+				bomb.draw(ctx);
+				ctx.font = "20px Comic Sans MS";
+				ctx.fillStyle = "red";
+				ctx.textAlign = "center";
+				ctx.fillText("Score " + score, canvas.width - 100, 30); 
+				ctx.fillText("Lives " + lives, 100, 30); 
+				if (score == 6) {
+					window.location = "Level2.html";
+				}
+				if (lives == 0) {
+					window.location = "Lose1.html";
+				}
+				if (sugar.C == sugar.max &&
+					water.C == water.max &&
+					apple.C == apple.max &&
+					score < 6){
+					window.location = "Lose1.html";	
+				}
+				
+			}
+
+
+			function animate(){       
+
+				requestAnimationFrame(animate);
+               	
+				player.checkCollision(water);
+				player.checkCollision(apple);
+				player.checkCollision(sugar);
+				player.checkCollisionBomb(bomb);
+
+				apple.x = 4 * apple.xDir ;
+				apple.y = apple.y + 4 * apple.yDir ;
+
+				water.x = 9 * water.xDir ;
+				water.y = water.y + 5 * water.yDir ;
+
+				sugar.x = 15 * sugar.xDir ;
+				sugar.y = sugar.y + 5.5 * sugar.yDir ;
+				
+				bomb.x = 11 * bomb.xDir ;
+				bomb.y = bomb.y + 5.5 * bomb.yDir ;
+				
+				if ( (sugar.y > canvas.height) && (sugar.C < sugar.max)){ 
+					sugar.y = -200; 
+					sugar.C++;
+				}
+				if ( (water.y > canvas.height) && (water.C < water.max)){ 
+					water.y = -150; 
+					water.C++;
+				}
+				if ( (apple.y > canvas.height) && (apple.C < apple.max)){ 
+					apple.y = -200; 
+					apple.C++;
+				}
+				if ( (bomb.y > canvas.height)){ 
+					bomb.y = -200; 
+				}
+				drawObjects();
+			}	
+			animate();
+		</script> 
+	</body>
+</html>
+

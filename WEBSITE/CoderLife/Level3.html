@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<style>
+	canvas {
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 550px;
+	}
+	</style>
+	
+	<head>
+		<title>Canvas Basic</title>
+	</head>
+	<body>  
+		<canvas id="c1" width="550"  height="550"  > </canvas>
+		
+		<script src="GameObj.js"></script>
+		
+		<script>
+			var score = 0;
+			var lives = 3;
+			var audio = new Audio('Sound3.wav');
+ 
+			var requestAnimationFrame = window.requestAnimationFrame ||
+							window.mozRequestAnimationFrame ||
+							window.webkitRequestAnimationFrame ||
+							window.msRequestAnimationFrame;
+							
+			var canvas = document.getElementById('c1');
+			var ctx = canvas.getContext('2d');
+
+
+			var background = new Image();
+			background.src = "level3BG.png";
+
+			
+			var player = new GameObject(canvas.width/2,canvas.height-75,50, 50,"basketE.png",0,0,10,true);
+			var kiwi  = new GameObject(0,0,50,50,"kiwi.png",30,1,2,true,3);
+			var strawberry  = new GameObject(0,0,80,50,"strawberry.png",30,1,5,true,2);	
+			var orange  = new GameObject(0,0,70,70,"Orange.png",30,1,5,true,4);
+			var milk  = new GameObject(0,0,70,70,"milk.png",30,1,9,true,2);
+			var bomb  = new GameObject(0,0,50,55,"bomb.png",30,1,5,true,0);
+
+
+
+			document.onkeydown = processKey;
+			//this function was modified to avoid letting the basket move beyond the limits of the BG..
+			
+			function  processKey(e){
+
+				e=e || window.event;
+				// alert("Key pressed = " + e.keyCode); 
+			
+				if (e.keyCode == 37){
+				// left key is pressed
+					if (player.x >0){
+					//within the screen edge from the left
+						player.x=player.x-50;
+						player.alive=true;
+						Image.src = 'basketE.png';
+					}
+				
+				}
+				if (e.keyCode == 39){
+				// right key is pressed
+					if (player.x <500){
+					//within the screen edge from the right
+						player.x=player.x+50;
+						
+						setInterval(player.alive=true, 2000);
+						Image.src = 'basketE.png';
+					}
+				}
+			}
+
+
+			function drawObjects(){
+
+				ctx.drawImage(background,0,0,canvas.width, canvas.height);
+				kiwi.draw(ctx);
+				strawberry.draw(ctx); 
+				player.draw(ctx); 
+				orange.draw(ctx);
+				milk.draw(ctx);
+				bomb.draw(ctx);
+
+				ctx.font = "20px Comic Sans MS";
+				ctx.fillStyle = "red";
+				ctx.textAlign = "center";
+				ctx.fillText("Score " + score, canvas.width - 100, 30);  
+				if (score == 6) 
+				{
+					window.location = "index.html";
+				}
+				if (lives == 0) {
+					window.location = "Lose3.html";
+				}
+				if (kiwi.C == kiwi.max &&
+					strawberry.C == strawberry.max &&
+					orange.C == orange.max &&
+					milk.C == milk.max &&
+					score < 6){
+					window.location = "Lose3.html";	
+				}
+			}
+
+
+			function animate(){       
+
+				requestAnimationFrame(animate);
+
+				player.checkCollision(kiwi);
+				player.checkCollision(strawberry);
+				player.checkCollision(orange);
+				player.checkCollision(milk);
+				player.checkCollisionBomb(bomb);
+
+				
+				kiwi.x = 3 * kiwi.xDir ;
+				kiwi.y = kiwi.y + 4 * kiwi.yDir ;
+
+				strawberry.x = 7 * strawberry.xDir ;
+				strawberry.y = strawberry.y + 5 * strawberry.yDir ;
+
+				orange.x = 11 * orange.xDir ;
+				orange.y = orange.y + 5.5 * orange.yDir ;
+
+				milk.x = 15 * milk.xDir ;
+				milk.y = milk.y + 5.5 * milk.yDir ;
+				
+				bomb.x = 13 * bomb.xDir ;
+				bomb.y = bomb.y + 5.5 * bomb.yDir ;
+				
+				if ( (kiwi.y > canvas.height) && (kiwi.C < kiwi.max)){ 
+					kiwi.y = -200; 
+					kiwi.C++;
+				}
+				if ( (strawberry.y > canvas.height) && (strawberry.C < strawberry.max)){ 
+					strawberry.y = -150; 
+					strawberry.C++;
+				}
+				if ( (orange.y > canvas.height) && (orange.C < orange.max)){ 
+					orange.y = -200; 
+					orange.C++;
+				}
+				if ( (milk.y > canvas.height) && (milk.C < milk.max)){ 
+					milk.y = -200; 
+					milk.C++;
+				}
+				if ( (bomb.y > canvas.height)){ 
+					bomb.y = -200; 
+				}
+				
+				drawObjects();
+			}	
+			animate();
+		</script> 
+	</body>
+</html>
+
