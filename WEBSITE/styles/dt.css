@@ -1,0 +1,17 @@
+.dTable {
+	display: table;
+	width: 80%;
+	text-align: center;
+	margin-top: 3%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.dTable .dRow{
+	display: table-row;
+	}
+	
+.dTable .dRow .dCol {
+	display: table-cell;
+	padding: 10px;
+}
